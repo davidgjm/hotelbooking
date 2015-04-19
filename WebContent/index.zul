@@ -8,7 +8,7 @@ font-size:3em;
 </style>
 <div align="center" self="@define(content)">
 <window border="none" apply="org.zkoss.bind.BindComposer" position="center" width="80%" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.WelcomeVM')" validationMessages="@id('vmsgs')">
-  <listbox model="@load(vm.expos)" selectedItem="@bind(vm.selected)" width="auto">
+  <listbox model="@load(vm.expos)" selectedItem="@bind(vm.selected)" width="auto" emptyMessage="&lt;span style=&quot;background-color: yellow; font-weight: bold;font-size: 1.2em; width: 200px&quot;&gt;暂时没有展会安排&lt;/span&gt;">
   <template name="model">
     <listitem style="padding-bottom:20px;">
       <listcell>

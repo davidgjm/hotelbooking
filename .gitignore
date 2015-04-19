@@ -43,3 +43,4 @@ Temporary Items
 .apdisk
 
 WebContent/WEB-INF/classes/db-config.properties
+/build/
