@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.CarBookingMapper">
+
+    <resultMap id="carBookingResult" type="carBooking">
+        <result property="id" column="id" />
+        <result property="bookCount" column="book_count"/>
+        <result property="bookDate" column="book_date" javaType="date"/>
+        <result property="whenToUse" column="when_to_use" javaType="date"/>
+        <result property="note" column="note" />
+        <association property="guest" javaType="guest" column="guest_id"
+          select="com.jinjiang.hotel.mappers.GuestMapper.getById"/>
+        <association property="carRental" javaType="carRental" column="car_rental_id"
+          select="com.jinjiang.hotel.mappers.CarRentalMapper.getById"/>
+    </resultMap>
+    <select id="getLastId" resultType="int">
+        SELECT max(id) as last
+        FROM car_bookings
+    </select>
+    <select id="getAll" parameterType="int" resultMap="carBookingResult">
+        SELECT *
+        FROM car_bookings
+        ORDER BY guest_id ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="carBookingResult">
+        SELECT *
+        FROM car_bookings
+        WHERE id=#{id}
+    </select>
+    <select id="getByGuest" parameterType="guest" resultMap="carBookingResult">
+        SELECT *
+        FROM car_bookings
+        WHERE guest_id=#{id}
+    </select>
+    
+    <insert id="save" parameterType="carBooking" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO car_bookings (guest_id, car_rental_id, book_count,when_to_use,note)
+        VALUES (#{guest.id},#{carRental.id}, #{bookCount},#{whenToUse},#{note})
+    </insert>
+    
+    <update id="update" parameterType="carBooking">
+        UPDATE car_bookings
+        SET
+        guest_id = #{guest.id},
+        car_rental_id=#{carRental.id},
+        book_count=#{bookCount},
+        when_to_use=#{whenToUse},
+        note=#{note}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM car_bookings WHERE id = #{id}
+    </delete>
+        <delete id="deleteByGuest" parameterType="guest">
+        DELETE FROM car_bookings 
+        WHERE guest_id = #{id}
+    </delete>
+</mapper>

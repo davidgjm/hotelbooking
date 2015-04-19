@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.RoomMapper">
+
+    <resultMap id="rResult" type="room">
+        <result property="id" column="id" />
+        <result property="type" column="room_type"/>
+        <result property="price" column="price"/>
+        <result property="isFull" column="booking_state" jdbcType="BIT"/>
+        <result property="note" column="note"/>
+        <association property="hotel" column="hotel_id" 
+          javaType="hotel" select="com.jinjiang.hotel.mappers.HotelMapper.getById" />
+          
+    </resultMap>
+    <select id="getAll" parameterType="int" resultMap="rResult">
+        SELECT *
+        FROM rooms r
+        INNER JOIN hotels h on r.hotel_id=h.id
+        ORDER BY r.hotel_id ASC
+    </select>
+    <select id="getLast" resultType="int">
+        SELECT max(id) as last
+        FROM rooms
+    </select>
+    <select id="getById" parameterType="int" resultMap="rResult">
+        SELECT *
+        FROM rooms
+        WHERE id=#{id}
+    </select>
+    <select id="getByHotel" parameterType="int" resultMap="rResult">
+        SELECT *
+        FROM rooms r
+        WHERE r.hotel_id=#{id}
+        ORDER BY r.price DESC
+    </select>
+    <select id="getByType" parameterType="int" resultMap="rResult">
+        SELECT *
+        FROM rooms r
+        WHERE r.type=#{id}
+    </select>
+    <insert id="save" parameterType="room" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO rooms (hotel_id,room_type,booking_state,price,note)
+        VALUES (#{hotel.id},#{type},#{isFull},#{price},#{note})
+    </insert>
+
+    <update id="update" parameterType="room">
+        UPDATE rooms
+        SET
+        hotel_id=#{hotel.id},
+        room_type=#{type},
+        booking_state=#{isFull},
+        price=#{price},
+        note=#{note}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM rooms
+        WHERE id = #{id}
+    </delete>
+</mapper>

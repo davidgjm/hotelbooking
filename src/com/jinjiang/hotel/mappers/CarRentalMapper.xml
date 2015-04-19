@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.CarRentalMapper">
+
+    <resultMap id="carRentalResult" type="carRental">
+        <result property="id" column="id" />
+        <result property="car" column="car"/>
+        <result property="usage" column="usage"/>
+        <result property="price" column="price"/>
+        <result property="note" column="note"/>
+    </resultMap>
+    
+    <select id="getAll" parameterType="int" resultMap="carRentalResult">
+        SELECT *
+        FROM car_rentals
+        ORDER BY car ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="carRentalResult">
+        SELECT *
+        FROM car_rentals
+        WHERE id=#{id}
+    </select>
+    <select id="getByCar" parameterType="int" resultMap="carRentalResult">
+        SELECT *
+        FROM car_rentals
+        WHERE car=#{car}
+    </select>
+    <select id="getByUsage" parameterType="int" resultMap="carRentalResult">
+        SELECT *
+        FROM car_rentals
+        WHERE usage=#{usage}
+    </select>
+    
+    <select id="getCars" parameterType="int" resultType="string">
+        select distinct(car) from car_rentals
+    </select>
+    <select id="getUsages" parameterType="int" resultType="string">
+        select distinct(usage) from car_rentals
+    </select>
+    
+    <insert id="save" parameterType="carRental" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO car_rentals (car, usage, price, note)
+        VALUES (#{car},#{usage}, #{price}, #{note})
+    </insert>
+    
+    <update id="update" parameterType="carRental">
+        UPDATE car_rentals
+        SET
+        car = #{car},
+        usage=#{usage},
+        price=#{price},
+        note=#{note}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM car_rentals WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,96 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style>
+		.banner { background-image:url('../images/banner.jpg');
+		background-repeat: repeat-x; }
+	</style>
+	<hlayout>
+		<a href="/" sclass="banner">
+			<image src="../images/banner.jpg" width="1000px" height="107px"/>
+		</a>
+		<div width="300px" height="127px" align="left" style="padding:20px">
+		<vlayout>
+			<hlayout>
+			        你好，<label style="font-weight:bold;" value="${not empty sessionScope.adminUser.displayName?sessionScope.adminUser.displayName: sessionScope.adminUser.userName}" />
+			</hlayout>
+			<separator height="35px"/>
+			<hlayout>
+        <button label="更新个人信息" onClick="updateProfileWin.doModal()" visible="${not empty sessionScope.adminUser }" disabled="${page.requestPath eq self.href}" />
+        <button label="修改密码" onClick="changePwdWin.doModal()" visible="${not empty sessionScope.adminUser }" />
+        <button apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.AuthenticationVM')"
+          label="退出" onClick="@command('doLogout')" visible="${not empty sessionScope.adminUser }" />
+			</hlayout>
+		</vlayout>
+		</div>
+	</hlayout>
+	
+<window id="updateProfileWin" title="修改用户信息" width="400px" border="normal" defaultActionOnShow="slideDown" position="center" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.UpdateProfileVM')" validationMessages="@id('vmsgs')">
+	<vlayout>
+	<grid>
+				<columns>
+					<column width="20%" align="right" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label sclass="header-column">显示名 :</label>
+						<textbox width="100%" value="@load(vm.user.displayName) @save(vm.user.displayName, before='doUpdateProfile')" />
+					</row>
+					<row>
+						<label sclass="header-column">邮件地址 :</label>
+						<textbox width="100%" value="@load(vm.user.email) @save(vm.user.email, before='doUpdateProfile')" constraint="no empty" />
+					</row>
+					<row>
+						<label sclass="header-column">备注信息 :</label>
+						<textbox width="100%" multiline="true" rows="3" value="@load(vm.user.note) @save(vm.user.note, before='doUpdateProfile')"/>
+					</row>
+				</rows>
+			</grid><label id="msgbox" value="@bind(vm.message)" sclass="error" visible="@load(vm.message)" /><hlayout>
+			<button label="提交" onClick="@command('doUpdateProfile')" forward="onOK=onClick" />
+			<button label="取消" onClick="updateProfileWin.visible=false" />
+			<button label="关闭" onClick="updateProfileWin.visible=false" />
+			</hlayout></vlayout>
+	</window>	
+	
+<window id="changePwdWin" title="更改密码" width="400px" border="normal" position="center"
+	defaultActionOnShow="slideDown"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.UpdateProfileVM')" validationMessages="@id('vmsgs')">
+	<vlayout>
+	<grid>
+				<columns>
+					<column width="20%" align="right" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label sclass="header-column">旧密码 :</label>
+						<hlayout>
+						<textbox width="100%" id="oldpwdbox" value="@load(vm.password) @save(vm.password, before='doChangePassword') @validator(vm.passwordValidator)" forward="onOK=loginBtn.onClick" type="password" />
+              <label value="@bind(vmsgs[oldpwdbox])" sclass="error" visible="@load(not empty vmsgs[oldpwdbox])" />
+						</hlayout>
+					</row>
+					<row>
+						<label sclass="header-column">新密码 :</label>
+						<hlayout>
+						<textbox width="100%" id="newpwdbox" value="@load(vm.newPassword) @save(vm.newPassword, before='doChangePassword') @validator(vm.changePasswordValidator)" forward="onOK=loginBtn.onClick" type="password" />
+              <label value="@bind(vmsgs[newpwdbox])" sclass="error" visible="@load(not empty vmsgs[newpwdbox])" />
+						</hlayout>
+					</row>
+					<row>
+						<label sclass="header-column">确认密码 :</label>
+						<hlayout>
+						<textbox width="100%" id="newretypepwdbox" value="@load(vm.retypePassword) @save(vm.retypePassword, before='doChangePassword') @validator(vm.changePasswordValidator)" forward="onOK=loginBtn.onClick" type="password" />
+              <label value="@bind(vmsgs[newretypepwdbox])" sclass="error" visible="@load(not empty vmsgs[newretypepwdbox])" />
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+			<label id="msgbox" value="@bind(vm.message)" sclass="error" visible="@load(vm.message)" />
+			<hlayout>
+			<button label="提交" onClick="@command('doChangePassword')" forward="onOK=onClick" />
+			<button label="取消" onClick="changePwdWin.visible=false" />
+			<button label="关闭" onClick="changePwdWin.visible=false" />
+			</hlayout></vlayout>
+	</window>
+</zk>

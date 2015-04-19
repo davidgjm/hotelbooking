@@ -1,0 +1,202 @@
+<?page title="展会预订信息预览" contentType="text/html;charset=UTF-8" ?>
+<?init class="com.jinjiang.hotel.initiators.BookingInitiator"?>
+<zk xmlns:n="native">
+<style src="/css/default.css"/>
+<style>
+.form-label {
+	font-weight:bold;
+}
+</style>
+	<window border="none" width="1024px"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.BookingDetailsVM')"
+		validationMessages="@id('vmsgs')">
+			<vlayout>
+			<div align="center">
+				<label sclass="expo-title" value="@load(vm.booking.guest.expo.name)"/>
+			</div>
+			<div align="right"><label sclass="expo-sub-title">---- 展会预订回执单</label></div>
+				
+			</vlayout>
+		<separator height="20px"/>
+		<grid>
+				<columns>
+					<column width="12%" />
+					<column />
+					<column width="12%" />
+					<column />
+					<column width="12%" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+					<label sclass="form-label">预订编号：</label>
+					<cell align="center">
+						<label sclass="entity-id" value="@load(vm.booking.id)" />
+					</cell>
+					<label sclass="form-label">客人编号：</label>
+					<cell align="center">
+					<label sclass="entity-id" value="@load(vm.booking.guest.id)" />
+					</cell>
+					<label sclass="form-label">确认状态：</label>
+					<label style="font-weight:bold;font-style:italic;font-size:115%;color:blue;" value="@load(vm.booking.confirmStatus?'已确认':'未确认')" />
+					</row>
+					<row>
+						<label sclass="form-label">公司：</label>
+						<cell colspan="5">
+							<label value="@load(vm.booking.guest.company)" />
+						</cell>
+					</row>
+					
+					<row>
+						<label sclass="form-label">联系人姓名：</label>
+						<cell>
+							<label value="@load(vm.booking.guest.name)" />
+						</cell>
+						<label sclass="form-label">电话：</label>
+						<cell>
+							<label value="@load(vm.booking.guest.phone)" />
+						</cell>
+						<label sclass="form-label">传真：</label>
+						<cell>
+							<label value="@load(vm.booking.guest.fax)" />
+						</cell>
+					</row>
+					<row>
+					<label sclass="form-label">联系人手机</label>
+					<label value="@load(vm.booking.guest.cellPhone)"/>
+					<label sclass="form-label">电邮地址 ：</label>
+					<label value="@load(vm.booking.guest.email)"/>
+					</row>
+					<row>
+						<label sclass="form-label">客人1：</label>
+						<label value="@load(vm.booking.guest.name1)" />
+						<label sclass="form-label">客人2：</label>
+						<label value="@load(vm.booking.guest.name2)" />
+						<label sclass="form-label">客人3：</label>
+						<label value="@load(vm.booking.guest.name3)" />
+					</row>
+					<row>
+						<label sclass="form-label">其他预订备注：</label>
+						<cell colspan="5">
+								<label value="@load(vm.booking.note)"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+	<separator height="20px"/>
+	<groupbox mold="3d" closable="false">
+		<caption label="酒店预订信息"/>
+		<grid>
+			<rows>
+					<row>
+						<label sclass="form-label">所选酒店名称：</label>
+						<cell colspan="4">
+							<label style="font-weight:bold;" value="@load(vm.hotel.name)" />
+						</cell>
+					</row>
+			</rows>
+		</grid>
+		<grid model="@load(vm.booking.roomBookings)">
+				<columns>
+					<column label="房型" width="10%"/>
+					<column label="房间数" width="5%" />
+					<column label="入住日期" width="15%"/>
+					<column label="退房日期" width="15%"/>
+					<column label="支付方式" width="10%"/>
+				</columns>
+				<rows>
+					<template name="model" var="bk" status="s">
+						<row>
+							<label value="@load(bk.room.type)" />
+        		 	<label value="@load(bk.roomCount)" />
+							<label value="@load(bk.checkinDate) @converter('formatedDate', format='yyyy年MM月dd日')"/>
+							<label value="@load(bk.checkoutDate) @converter('formatedDate', format='yyyy年MM月dd日')" />
+							<label value="@load(bk.mode.name)" />
+						</row>
+					</template>
+				</rows>
+			</grid>
+			<separator height="10px" />
+			<n:h5>预订须知</n:h5>
+			<div style="font-family:Arial,Sans-serif;font-size:12px;">
+			<n:ol>
+				<n:li style="padding-bottom:5px;">如需要预订以上酒店的房间（除上海帝盛酒店、上海大华锦绣假日酒店外），请填写本回执单并回传到以下订房传真。订房会务组收到返回的订房回执单后将回复确认,住宿人凭确认单到宾馆（酒店）总服务台办理入住。</n:li>
+				<n:li style="padding-bottom:5px;">为避免损失，在收到住宿登记的回复确认后需要变更预订的应及时通知订房热线。</n:li>
+				<n:li style="padding-bottom:5px;">客房预订保留到入住日当天18：00，过时宾馆（酒店）将取消预订。如因特殊情况，需延长保留时间的请在本表格的其他要求一栏中注明，并写明到达宾馆（酒店）的大约时间。需要将客房预订保留到入住日当天18：00以后的, 须将第一天的房费汇入宾馆（酒店）帐户,汇款的具体事宜与订房热线联系。如要宾馆（酒店）保留房间后未入住，宾馆（酒店）将收一天的房费为损失费。</n:li>
+				<n:li>除上海帝盛酒店、上海大华锦绣假日酒店外，如不需要将客房预订保留到入住日当天18：00以后的，房费在入住时支付。</n:li>
+			</n:ol>
+			</div>
+<separator height="10px" />
+<grid width="50%">
+				<rows>
+					<row><cell align="center">
+						<label style="font-weight:bold;font-size:110%" value="回执单填妥后请传真到本展会订房会务组如下传真" />
+					</cell></row>
+					<row><cell align="center">
+					<label style="font-weight:bold;font-size:110%" value="订房传真：86-21-62897838    订房热线电话：86-21-62893004" />
+</cell></row>
+				</rows>
+			</grid>
+	</groupbox>
+	<separator height="20px" />
+	<groupbox mold="3d" closable="false">
+		<caption label="汽车租用"/>
+		<grid model="@load(vm.booking.carBookings)">
+				  <columns>
+				    <column label="车程" width="10%" />
+				    <column label="所选车型" width="10%"/>
+				    <column label="车辆数" width="5%"/>
+				    <column label="使用日期" width="10%"/>
+				  </columns>
+				  <template name="model">
+				    <row>
+				      <cell><label value="@load(each.carRental.usage)"/></cell>
+				      <cell><label value="@load(each.carRental.car)"/></cell>
+				      <cell><label value="@load(each.bookCount)"/></cell>
+				      <cell><label value="@load(each.whenToUse) @converter('formatedDate', format='yyyy年MM月dd日')" /></cell>
+				    </row>
+				  </template>
+				</grid>
+			<n:h5>备注</n:h5>
+			<div style="font-family:Arial,Sans-serif;font-size:12px;">
+				<n:ol>
+					<n:li style="padding-bottom:5px;">以上车价不含停车费、过路过桥费用</n:li>
+					<n:li style="padding-bottom:5px;">以上市内用车超时按100元/小时，超公里按10元/公里计算</n:li>
+					<n:li>我公司另有大型客运车辆可供租用，如有需要，价格面议。</n:li>
+				</n:ol>
+			</div>
+	</groupbox>
+	<separator height="20px" />
+	<groupbox mold="3d" closable="false">
+		<caption label="本地导游服务"/>
+		<grid model="@load(vm.booking.tourBookings)">
+			<columns>
+					<column label="行程" width="auto"/>
+					<column label="语言" />
+					<column label="服务次数" width="15%"/>
+					<column label="使用日期" />
+			</columns>
+			<rows>
+				<template name="model" status="s">
+					<row>
+						<cell><label value="@load(each.guiding.route)" /></cell>
+						<cell><label value="@load(each.guiding.language)" /></cell>
+						<cell><label value="@load(each.bookCount)" /></cell>
+						<cell><label value="@load(each.whenToUse) @converter('formatedDate', format='yyyy年MM月dd日')" /></cell>
+					</row>
+				</template>
+			</rows>
+			</grid>
+			<n:h5>备注</n:h5>
+			<div style="font-family:Arial,Sans-serif;font-size:12px;">
+				<n:ol>
+					<n:li style="padding-bottom:5px;">以上车价不含游览期间的车费、门票等费用</n:li>
+					<n:li style="padding-bottom:5px;">以上超时按100元/小时计算</n:li>
+					<n:li>我公司另有各类其他语种导游（法语、德语、西班牙语等），如有需要，价格面议。</n:li>
+				</n:ol>
+			</div>
+	</groupbox>
+	</window>
+
+</zk>

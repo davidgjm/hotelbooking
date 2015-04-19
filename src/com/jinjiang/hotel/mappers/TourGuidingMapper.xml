@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.TourGuidingMapper">
+
+    <resultMap id="tourGuidingResult" type="tourGuiding">
+        <result property="id" column="id" />
+        <result property="language" column="language"/>
+        <result property="route" column="route"/>
+        <result property="price" column="price"/>
+    </resultMap>
+    
+    <select id="getAll" parameterType="int" resultMap="tourGuidingResult">
+        SELECT *
+        FROM tour_guiding
+        ORDER BY language ASC
+    </select>
+    <select id="getRoutes" parameterType="int" resultType="string">
+        SELECT DISTINCT(route)
+        FROM tour_guiding
+        ORDER BY route ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="tourGuidingResult">
+        SELECT *
+        FROM tour_guiding
+        WHERE id=#{id}
+    </select>
+    <select id="getByLanguage" parameterType="int" resultMap="tourGuidingResult">
+        SELECT * FROM tour_guiding
+        WHERE language=#{language}
+    </select>
+    <select id="getByRoute" parameterType="int" resultMap="tourGuidingResult">
+        SELECT * FROM tour_guiding
+        WHERE route=#{route}
+    </select>
+    
+    <insert id="save" parameterType="tourGuiding" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO tour_guiding (route, language, price)
+        VALUES (#{route},#{language}, #{price})
+    </insert>
+    
+    <update id="update" parameterType="tourGuiding">
+        UPDATE tour_guiding
+        SET
+        route = #{route},
+        language=#{language},
+        price=#{price}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM tour_guiding WHERE id = #{id}
+    </delete>
+</mapper>

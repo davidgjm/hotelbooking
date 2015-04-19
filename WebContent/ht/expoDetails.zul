@@ -1,0 +1,66 @@
+<?page title="管理合作酒店" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+
+<zk>
+<style src="/css/default.css"/>
+<style>
+.title {
+font-size:2em;
+}
+
+</style>
+<window title="合作酒店管理" border="normal" self="@define(content)"
+  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.ExpoDetailsVM')" validationMessages="@id('vmsgs')">
+<div align="center">
+<label sclass="expo-title" value="${adminExpo.name}"/> 合作酒店管理
+</div>
+<grid>
+<columns>
+	<column label="候选酒店"/>
+	<column width="10%" label="操作" align="center"/>
+	<column label="合作酒店"/>
+</columns>
+<rows>
+<row valign="top">
+<cell width="45%">
+<listbox multiple="true" checkmark="true" model="@load(vm.hotels)"
+  onSelect="addHotelsBtn.setDisabled(false)">
+    <listhead>
+           <listheader label="ID" sort="auto(id)" width="15%" />
+           <listheader label="酒店" sort="auto(name)" width="55%" />
+           <listheader label="星级标准" sort="auto(rating)" />
+    </listhead>
+    <template name="model" var="item">
+           <listitem>
+                  <listcell label="@load(item.id)" />
+                  <listcell label="@load(item.name)" tooltiptext="@load(item.address)" />
+                  <listcell label="@load(item.rating)" tooltiptext="@load(item.priceInfo)"/>
+           </listitem>
+    </template>
+</listbox></cell>
+<cell width="10%" align="center" valign="top">
+<vlayout spacing="20px">
+	<button label="保存" onClick="@command('updateExpo')" />
+	<button label="恢复修改" onClick="@command('revertChanges')"/>
+	<button id="addHotelsBtn" disabled="true" label="==&gt;" onClick="@command('handleAddHotels')" />
+	<button label="&lt;==" onClick="@command('handleRemoveHotels')" />
+	<button label="返回" onClick="@command('close')" />
+</vlayout>
+</cell>
+<cell width="45%"><listbox multiple="true" checkmark="true" model="@load(vm.expoHotels)">
+           <listhead>
+                  <listheader label="酒店" sort="auto(name)" width="40%" />
+                  <listheader label="星级标准" sort="auto(rating)" width="30%" />
+           </listhead>
+           <template name="model" var="item">
+                  <listitem>
+                  <listcell label="@load(item.name)" tooltiptext="@load(item.address)" />
+                  <listcell label="@load(item.rating)" tooltiptext="@load(item.priceInfo)"/>
+                  </listitem>
+           </template>
+</listbox></cell>
+</row>
+</rows>
+</grid>
+</window>
+</zk>

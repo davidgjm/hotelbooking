@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.HotelMapper">
+
+    <resultMap id="hotelResult" type="hotel">
+        <result property="id" column="id" />
+        <result property="name" column="name"/>
+        <result property="rating" column="rating"/>
+        <result property="address" column="address"/>
+        <result property="description" column="description"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="priceInfo" column="price_info"/>
+        <result property="note" column="note"/>
+        <association property="rooms" javaType="list" column="id"
+          select="com.jinjiang.hotel.mappers.RoomMapper.getByHotel" />
+    </resultMap>
+    <select id="getAll" parameterType="int" resultMap="hotelResult">
+        SELECT *
+        FROM hotels
+        ORDER BY id ASC
+    </select>
+    <select id="getHotelsByExpo" parameterType="expo" resultMap="hotelResult">
+				SELECT * from hotels h
+				INNER JOIN expo_hotels eh
+				ON h.id=eh.hotel_id
+				WHERE
+				  eh.expo_id=#{id}
+        ORDER BY h.id ASC
+    </select>
+    <select id="getExposByHotel" parameterType="hotel" resultMap="hotelResult">
+				SELECT * from expos e
+				INNER JOIN expo_hotels eh
+				ON e.id=eh.expo_id
+				WHERE eh.hotel_id=#{id}
+        ORDER BY name ASC
+    </select>
+    <select id="getById" parameterType="int" resultMap="hotelResult">
+        SELECT *
+        FROM hotels
+        WHERE id=#{id}
+    </select>
+    <select id="findByKeyword" parameterType="string" resultMap="hotelResult" >
+        SELECT *
+        FROM hotels
+				WHERE name like '%' + #{name}+'%'
+				ORDER BY id
+    </select>
+    <insert id="save" parameterType="hotel" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO hotels (name,rating,address, description,image_path, note, price_info)
+        VALUES (#{name},#{rating},#{address}, #{description}, #{imagePath}, #{note}, #{priceInfo})
+    </insert>
+
+    <update id="update" parameterType="hotel">
+        UPDATE hotels
+        SET
+        name = #{name},
+        rating=#{rating},
+        address = #{address},
+        description=#{description},
+        image_path=#{imagePath},
+        note=#{note},
+        price_info=#{priceInfo}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM hotels WHERE id = #{id}
+        DELETE FROM expo_hotels WHERE hotel_id=#{id}
+    </delete>
+</mapper>

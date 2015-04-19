@@ -1,0 +1,91 @@
+<?page title="展会管理" contentType="text/html;charset=UTF-8" ?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+
+<zk>
+	<window title="展览会管理" border="normal" self="@define(content)"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.ExpoVM')"
+		validationMessages="@id('vmsgs')">
+		<toolbar>
+					<button label="添加" onClick="@command('createExpo')" />
+					<button label="保存" onClick="@command('saveExpo')" disabled="@bind(empty vm.selected)" />
+					<button label="删除" onClick="@command('deleteExpo')" disabled="@load(empty vm.selected)" />
+					<button label="上传展会图片" mold="trendy" upload="true,maxsize=10000,multiple=false,accept=image/*" onUpload="@command('upload')" />
+					<button label="管理合作酒店" onClick="@command('showExpoDetails')" disabled="@load(empty vm.selected)">
+					</button>
+				</toolbar><hlayout>
+			<listbox model="@load(vm.expos)"
+				selectedItem="@bind(vm.selected)" hflex="true" mold="paging"
+				pagingPosition="both" pageSize="20">
+				<listhead>
+					<listheader label="ID" sort="auto(id)" 	width="5%" />
+					<listheader label="展会" sort="auto(name)" 	width="32%" />
+					<listheader label="地点" sort="auto(venue)" width="30%" />
+					<listheader label="开始日期" sort="auto(beginDate)" width="10%" />
+					<listheader label="结束日期" sort="auto(endDate)" width="10%" />
+				</listhead>
+				<template name="model" var="item">
+					<listitem>
+						<listcell label="@load(item.id)"/>
+						<listcell label="@load(item.name)" tooltip="expoImage" />
+						<listcell label="@load(item.venue)" tooltiptext="@load(item.introduction)"/>
+						<listcell	label="@load(item.beginDate) @converter('formatedDate', format='yyyy-MM-dd')" />
+						<listcell	label="@load(item.endDate) @converter('formatedDate', format='yyyy-MM-dd')" />
+					</listitem>
+				</template>
+			</listbox>
+			<div width="450px">
+				<groupbox visible="@load(not empty vm.selected)"
+					mold="3d">
+					<grid hflex="true" focus="false">
+						<columns>
+							<column width="15%" />
+							<column />
+							<column width="15%" />
+							<column  />
+						</columns>
+						<rows>
+							<row>
+							ID <label value="@load(vm.selected.id)"/>
+							</row>
+							<row>
+								名称
+								<cell colspan="3">
+								<textbox width="100%" multiline="true" rows="2"
+									value="@load(vm.selected.name) @save(vm.selected.name,before='saveExpo')"
+									constraint="no empty" />
+								</cell>
+							</row>
+							<row>
+								地点
+								<cell colspan="3">
+								<textbox width="100%" multiline="true" rows="2"
+									value="@load(vm.selected.venue) @save(vm.selected.venue,before='saveExpo')" />
+								</cell>
+							</row>
+							<row>
+									开始日期
+									<datebox
+										value="@load(vm.selected.beginDate) @save(vm.selected.beginDate)" />
+									结束日期
+									<datebox
+										value="@load(vm.selected.endDate) @save(vm.selected.endDate)" />
+							</row>
+							<row>
+								说明
+								<cell colspan="3">
+								<textbox width="100%"
+									value="@load(vm.selected.introduction) @save(vm.selected.introduction,before='saveExpo')"
+									multiline="true" rows="6" />
+								</cell>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</div>
+		</hlayout>
+		<popup id="expoImage">
+		<image src="@load(vm.selected.imagePath)" />
+		</popup>
+	</window>
+</zk>

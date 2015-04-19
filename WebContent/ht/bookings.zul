@@ -1,0 +1,53 @@
+<?page title="展会管理" contentType="text/html;charset=UTF-8" ?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+<zk>
+<style src="/css/default.css"/>
+<style>
+.masthead {
+  font-size:110%;
+  font-weight:bold;
+}
+</style>
+<window title="展览预订信息管理" border="normal" 
+  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.BookingVM')" validationMessages="@id('vmsgs')" self="@define(content)">
+<vlayout>
+<hlayout>
+选择展会：
+<combobox model="@load(vm.expos)" cols="40" selectedItem="@bind(vm.expo)" onSelect="@command('doLoadBookings')">
+  <template name="model">
+    <comboitem label="@load(each.name)" tooltiptext="@load(each.introduction)" />
+  </template>
+</combobox>
+
+<checkbox label="只列出未确认的预订信息" checked="@bind(vm.loadUnConfirmedOnly)"/>
+</hlayout>
+<div align="center"><label sclass="masthead" value="@load(vm.expo.name)" />
+<label visible="@load(not empty vm.expo.name)">预订信息</label></div>
+<listbox model="@load(vm.bookings)" selectedItem="@bind(vm.booking)" hflex="true" mold="paging" pagingPosition="both" pageSize="50">
+				<listhead>
+					<listheader label="预订编号" sort="auto(id)" width="4%" />
+					<listheader label="客人姓名" sort="auto(guest.name)" width="12%" />
+					<listheader label="电邮" sort="auto(guest.email)" width="15%" />
+					<listheader label="预订日期" sort="auto(bookedOn)" width="6%" />
+					<listheader label="确认状态" sort="auto(confirmStatus)" width="4%" />
+					<listheader width="10%"/>
+				</listhead>
+				<template name="model" var="item">
+					<listitem>
+						<listcell label="@load(item.id)" />
+						<listcell label="@load(item.guest.name)" />
+						<listcell label="@load(item.guest.email)" />
+						<listcell label="@load(item.bookedOn) @converter('formatedDate', format='yyyy年MM月dd日')" />
+						<listcell sclass="booking-status-confirmed" visible="@load(item.confirmStatus)" label="已确认" />
+						<listcell sclass="booking-status-not-confirmed" visible="@load(not item.confirmStatus)" label="待确认" />
+						<listcell>
+							<button label="详情" onClick="@command('openBooking', bid=item.id)"/>
+							<button label="打印预览" visible="true" onClick="@command('openBookingPrintPreview', bid=item.id)"/>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox></vlayout>
+		
+	</window>
+	
+</zk>

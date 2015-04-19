@@ -1,0 +1,10 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+<vlayout>
+<div></div>
+<div align="right" style="padding:20px" 
+apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.AuthenticationVM')">
+<button label="退出" onClick="@command('doLogout')" visible="${not empty sessionScope.adminUser }"/>
+</div>
+</vlayout>
+</zk>

@@ -1,0 +1,29 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+.z-label.info, .z-label.success, .z-label.warning, .z-label.error,.error, .z-label.validation {
+border: 1px solid;
+margin: 5px 0px;
+padding:5px 5px 5px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.z-label.error, .error {
+	font-family: Arial,Sans-serif;
+  font-size:11px;
+  line-height:26px;
+  color: #900;
+	background-color: #fee;
+	background-image: url('../images/error.png');
+	border-radius:10px;
+}
+</style>
+    <borderlayout hflex="1" vflex="1">
+        <north height="110px" border="none" self="@insert(banner)" />
+        <west width="160px" border="none" style="padding-top:10px"  collapsible="true" splittable="true" minsize="150" self="@insert(sidebar)" />
+        <center id="mainContent" autoscroll="true" border="none" self="@insert(content)" style="padding-top:10px" />
+        <!-- 
+        <south height="50px" border="none" self="@insert(footer)" />
+         -->
+    </borderlayout>
+</zk>

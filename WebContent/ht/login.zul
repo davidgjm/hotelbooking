@@ -1,0 +1,63 @@
+<?page  contentType="text/html;charset=UTF-8"?>
+<zk>
+<style src="/css/default.css" />
+<style>
+.z-label.info, .z-label.success, .z-label.warning, .z-label.error,.error, .z-label.validation {
+border: 1px solid;
+margin: 5px 0px;
+padding:5px 5px 5px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.z-label.error, .error {
+	font-family: Arial,Sans-serif;
+  font-size:11px;
+  color: #900;
+	background-color: #fee;
+	background-image: url('../images/error.png');
+	border-radius:10px;
+	line-height:24px;
+}
+
+</style>
+	<window title="用户登录" border="normal" width="560px" 
+	 mode="highlighted" closable="false" draggable="false" defaultActionOnShow="slideDown" position="center"
+	  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.AuthenticationVM')" 
+	 validationMessages="@id('vmsgs')">
+		<vlayout style="padding-top:10px;">
+			<div sclass="error" width="50%" visible="@bind(not empty vm.message)">
+			<label value="@bind(vm.message)" />
+			</div>
+			<grid>
+				<columns>
+					<column width="15%" align="right" style="font-weight:bold;" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label sclass="required">用户名 :</label>
+						<hlayout>
+  						<textbox id="namebox" value="@save(vm.userName, before='doLogin') " 
+  							forward="onOK=loginBtn.onClick" constraint="no empty" width="200px"/>
+  						<label visible="@bind(not empty vmsgs[namebox])" value="@bind(vmsgs[namebox])" sclass="error" />
+						</hlayout>
+					</row>
+					<row>
+						<label sclass="required">密码 :</label>
+						<hlayout>
+						<textbox id="pwdbox" value="@save(vm.password, before='doLogin')"
+						  forward="onOK=loginBtn.onClick" constraint="no empty" type="password" width="200px" />
+              <label visible="@bind(not empty vmsgs[pwdbox])" value="@bind(vmsgs[pwdbox])" sclass="error" />
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+			
+			<hlayout>
+			<button id="loginBtn" label="登录" onClick="@command('doLogin')" forward="onOK=onClick"  />
+			<!--  -->
+			<button label="返回主页" href="/"/>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

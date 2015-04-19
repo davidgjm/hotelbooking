@@ -1,0 +1,280 @@
+<?page title="展会管理" contentType="text/html;charset=UTF-8" ?>
+<?init class="com.jinjiang.hotel.initiators.BookingInitiator"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+<zk>
+<style src="/css/default.css"/>
+<style>.masthead { font-size:110%; font-weight:bold; }
+.entity-id{
+	font-size:110%;
+	font-weight:bolder;
+	color:#15288A;
+}
+</style>
+	<window title="展览预订信息管理" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.BookingDetailsVM')"
+		validationMessages="@id('vmsgs')" self="@define(content)">
+<toolbar>
+<button label="直接确认订单" onClick="@command('doConfirm')"  visible="@load(not vm.booking.confirmStatus)" />
+<button label="保存修改" onClick="@command('doUpdate')"/>
+<button label="取消修改并返回" onClick="@command('revertRemovedBookings')"/>
+</toolbar>
+		<groupbox mold="3d" closable="false">
+			<caption label="联络信息" />
+			<grid>
+				<columns>
+					<column align="right" width="12%"/>
+					<column/>
+					<column align="right" width="12%"/>
+					<column/>
+					<column align="right" width="12%"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						预订编号：
+					<cell align="center">
+						<label sclass="entity-id" value="@load(vm.booking.id)" />
+					</cell>
+					客人编号：
+					<cell align="center">
+					<label sclass="entity-id" value="@load(vm.booking.guest.id)"/>
+					</cell>
+					<cell>
+						确认状态
+					</cell>
+						<cell sclass="@load(vm.booking.confirmStatus?'booking-status-confirmed':'booking-status-not-confirmed')">
+							<label style="font-weight:bold;" value="@load(vm.booking.confirmStatus?'已确认':'未确认')" />
+						</cell>
+					</row>
+					<row>
+						<cell sclass="required">姓名(第1个客人)：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.name) @save(vm.booking.guest.name, before='doUpdate')"
+								constraint="no empty" />
+						</cell>
+						<cell>姓名(第2个客人)：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.name1) @save(vm.booking.guest.name1, before='doUpdate')" />
+						</cell>
+						<cell>姓名(第3个客人)：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.name2) @save(vm.booking.guest.name2, before='doUpdate')" />
+						</cell>
+					</row>
+					<row>
+						<cell>姓名(第4个客人)：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.name3) @save(vm.booking.guest.name3, before='doUpdate')" />
+						</cell>
+						<cell sclass="required">电邮地址 ：</cell>
+						<cell>
+							<vlayout>
+								<div width="60%" sclass="error"
+									visible="@bind(not empty vmsgs[mailbox])">
+									<label
+										value="@bind(vmsgs[mailbox])" />
+								</div>
+								<textbox id="mailbox" width="90%"
+									value="@load(vm.booking.guest.email) @save(vm.booking.guest.email, before='doUpdate') @validator(vm.emailValidator)"
+									constraint="no empty" />
+							</vlayout>
+						</cell>
+					</row>
+					<row>
+					</row>
+					<row>
+						<cell>公司：</cell>
+						<cell colspan="2">
+							<textbox width="100%"
+								value="@load(vm.booking.guest.company) @save(vm.booking.guest.company, before='doUpdate')" />
+						</cell>
+						<cell>地址：</cell>
+						<cell colspan="2">
+							<textbox width="100%"
+								value="@load(vm.booking.guest.address) @save(vm.booking.guest.address, before='doUpdate')" />
+						</cell>
+					</row>
+					<row>
+						<cell>邮编：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.postcode) @save(vm.booking.guest.postcode, before='doUpdate')" />
+						</cell>
+						<cell sclass="required">电话：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.phone) @save(vm.booking.guest.phone, before='doUpdate')"
+								constraint="no empty" />
+						</cell>
+						<cell sclass="required">传真：</cell>
+						<cell>
+							<textbox width="90%"
+								value="@load(vm.booking.guest.fax) @save(vm.booking.guest.fax, before='doUpdate')"
+								constraint="no empty" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+	<separator height="15px"/>
+	<groupbox closable="false" mold="3d">
+			<caption label="客户预订信息说明" />
+			<textbox width="100%" multiline="true" rows="3" value="@load(vm.booking.note) @save(vm.booking.note, before='doUpdate')" />
+	</groupbox>
+	<tabbox>
+	<tabs>
+		<tab label="酒店预订信息" />
+		<tab label="汽车租用" />
+		<tab label="本地导游服务" />
+	</tabs>
+	<tabpanels>
+		<tabpanel><vlayout>
+			<hlayout>
+				已订酒店：<label style="font-weight:bold;" value="@load(vm.hotel.name)" />
+			</hlayout><hlayout>
+				选择房型：
+         <combobox cols="10" model="@load(vm.hotel.rooms)" selectedItem="@bind(vm.roomBooking.room)">
+           <template name="model" var="rm">
+             <comboitem label="@load(rm.type)" description="@load(rm.price)" />
+           </template>
+         </combobox>
+         房间数：
+         <spinner cols="2" value="@bind(vm.roomBooking.roomCount)" constraint="min 0 max 10: 房间数范围  0 - 10" />
+
+         入住日期:
+         <datebox value="@bind(vm.roomBooking.checkinDate)" format="long" constraint="no past, no today" />
+         退房日期:
+         <datebox value="@bind(vm.roomBooking.checkoutDate)" format="long" constraint="no past, no today" />
+				付款方式:
+	      <combobox cols="10" model="@load(vm.modes)" selectedItem="@bind(vm.roomBooking.mode)">
+	            <template name="model" var="pm">
+	              <comboitem label="@load(pm.name)" />
+	            </template>
+	      </combobox>
+	      <button label="添加" onClick="@command('doAddRoomBooking')" disabled="@load(empty vm.roomBooking.room or empty vm.roomBooking.roomCount)" />
+				</hlayout>
+			</vlayout>
+			<grid model="@load(vm.booking.roomBookings)">
+				<columns>
+					<column label="ID" width="5%" />
+					<column label="房间数" width="10%" />
+					<column label="房型" />
+					<column label="入住日期" />
+					<column label="退房日期" />
+					<column label="支付方式" />
+					<column />
+				</columns>
+				<rows>
+					<template name="model" var="bk" status="s">
+						<row>
+							<label value="@load(bk.id)" />
+        		 	<spinner cols="2" value="@load(bk.roomCount) @save(bk.roomCount, before='doUpdateRoomBooking')" constraint="min 0 max 10: 房间数范围  0 - 10" />
+							<label value="@load(bk.room.type)" />
+							<datebox cols="12" value="@load(bk.checkinDate) @save(bk.checkinDate, before='doUpdateRoomBooking')" format="long" constraint="no past, no today" />
+							<datebox cols="12" value="@load(bk.checkoutDate) @save(bk.checkoutDate, before='doUpdateRoomBooking')" format="long" constraint="no past, no today" />
+							<label value="@load(bk.mode.name)" />
+							<cell>
+								<button label="保存修改" onClick="@command('doUpdateRoomBooking', booking=bk)" />
+								<button label="删除" onClick="@command('doRemoveRoomBooking', booking=bk)" />
+							</cell>
+						</row>
+					</template>
+				</rows>
+			</grid></tabpanel>
+		<tabpanel><hlayout>
+				           选择车程
+            <combobox model="@load(vm.carUsages)" selectedItem="@bind(vm.carUsage)" onSelect="@command('loadCarRentls')">
+              <template name="model">
+                <comboitem label="@load(each)" />
+              </template>
+            </combobox>
+				    选择车型
+            <combobox model="@load(vm.carRentals)" selectedItem="@bind(vm.carBooking.carRental)">
+              <template name="model">
+                <comboitem label="@load(each.car)" tooltiptext="@load(each.price)" />
+              </template>
+            </combobox>
+				  选择车辆数
+				  <spinner cols="2" value="@bind(vm.carBooking.bookCount)" constraint="no empty, min 0" />
+				  使用日期
+				  <datebox value="@bind(vm.carBooking.whenToUse)" format="long" constraint="no past" />
+				  <button label="添加" onClick="@command('doAddCarBooking')" disabled="@load(empty vm.carBooking.carRental or empty vm.carBooking.bookCount)" />
+				</hlayout><listbox width="100%" model="@load(vm.booking.carBookings)">
+				  <listhead>
+				    <listheader label="ID" width="5%" />
+				    <listheader label="车程" />
+				    <listheader label="所选车型" />
+				    <listheader label="车辆数" />
+				    <listheader label="使用日期" />
+				    <listheader />
+				  </listhead>
+				  <template name="model" status="s">
+				    <listitem>
+				      <listcell label="@load(each.id)" />
+				      <listcell label="@load(each.carRental.usage)" />
+				      <listcell label="@load(each.carRental.car)" />
+				      <listcell><spinner cols="2" value="@load(each.bookCount) @save(each.bookCount,before='doUpdateCarBooking')" constraint="min 0" /></listcell>
+				      <listcell><datebox cols="12" value="@load(each.whenToUse) @save(each.whenToUse, before='doUpdateCarBooking')" format="long" constraint="no past" /></listcell>
+				      <listcell>
+				      	<button label="保存修改" onClick="@command('doUpdateCarBooking', booking=each)" />
+				      	<button label="删除" onClick="@command('doRemoveCarBooking', booking=each)" />
+				      </listcell>
+				    </listitem>
+				  </template>
+				</listbox></tabpanel>
+		<tabpanel><hlayout>
+				选择行程
+            <combobox model="@load(vm.tourRoutes)" selectedItem="@bind(vm.tourRoute)" onSelect="@command('loadTourGuidings')">
+              <template name="model">
+                <comboitem label="@load(each)" />
+              </template>
+            </combobox>
+				选择语言
+            <combobox model="@load(vm.guidings)" selectedItem="@bind(vm.tourBooking.guiding)">
+              <template name="model">
+                <comboitem label="@load(each.language)" tooltiptext="@load(each.price)" />
+              </template>
+            </combobox>
+				服务次数
+          <spinner cols="2" value="@bind(vm.tourBooking.bookCount)" constraint="no empty, min 0" />
+				使用日期
+				<datebox value="@bind(vm.tourBooking.whenToUse)" format="long" constraint="no past" />
+				<button label="添加" onClick="@command('doAddTourBooking')" disabled="@load(empty vm.tourBooking.guiding or empty vm.tourBooking.bookCount)" />
+				</hlayout><listbox width="100%" model="@load(vm.booking.tourBookings)">
+				<listhead>
+				  <listheader label="ID" width="5%" />
+					<listheader label="行程" />
+					<listheader label="语言" />
+					<listheader label="服务次数" />
+					<listheader label="使用日期" />
+					<listheader />
+				</listhead>
+				<template name="model" status="s">
+					<listitem>
+						<listcell label="@load(each.id)" />
+						<listcell label="@load(each.guiding.route)" />
+						<listcell label="@load(each.guiding.language)" />
+						<listcell>
+							<spinner cols="2" value="@load(each.bookCount) @save(each.bookCount, before='doUpdateTourBooking')" constraint="min 1" />
+						</listcell>
+						<listcell>
+							<datebox cols="12" value="@load(each.whenToUse) @save(each.whenToUse, before='doUpdateTourBooking')" format="long" constraint="no past" />
+						</listcell>
+						<listcell>
+							<button label="保存修改" onClick="@command('doUpdateTourBooking', booking=each)" />
+							<button label="删除" onClick="@command('doRemoveTourBooking', booking=each)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox></tabpanel>
+	</tabpanels>
+</tabbox>
+	
+	</window>
+
+</zk>

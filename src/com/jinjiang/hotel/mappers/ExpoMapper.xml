@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.ExpoMapper">
+
+    <resultMap id="expoResult" type="expo">
+        <result property="id" column="id" />
+        <result property="name" column="name"/>
+        <result property="isEnglish" column="is_english" javaType="boolean"/>
+        <result property="introduction" column="introduction"/>
+        <result property="memo" column="memo"/>
+        <result property="venue" column="venue"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="beginDate" column="begin_date" javaType="date"/>
+        <result property="endDate" column="end_date" javaType="date"/>
+    </resultMap>
+    
+    <select id="getAll" parameterType="int" resultMap="expoResult">
+        SELECT *
+        FROM expos
+        ORDER BY begin_date ASC
+    </select>
+    <select id="getCurrent" parameterType="int" resultMap="expoResult">
+        SELECT *
+        FROM expos
+        WHERE begin_date &gt; GETDATE()
+        ORDER BY begin_date ASC
+    </select>
+    <select id="getCurrentEnglish" parameterType="int" resultMap="expoResult">
+        SELECT *
+        FROM expos
+        WHERE begin_date &gt; GETDATE() and is_english = 1
+        ORDER BY begin_date ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="expoResult">
+        SELECT *
+        FROM expos
+        WHERE id=#{id}
+    </select>
+    
+    <select id="getByName" parameterType="string" resultMap="expoResult" >
+        SELECT *
+        FROM expos
+				WHERE name =#{name}
+				ORDER BY begin_date
+    </select>
+    
+    <select id="getLast" resultType="int">
+        SELECT max(id) as last
+        FROM expos
+    </select>
+    
+    <insert id="save" parameterType="hotel" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO expos (name, introduction, venue, begin_date, end_date, image_path,memo,is_english)
+        VALUES (#{name}, #{introduction}, #{venue}, #{beginDate}, #{endDate}, #{imagePath},#{memo},#{isEnglish})
+    </insert>
+    
+    <insert id="addHotel" parameterType="map">
+      INSERT INTO expo_hotels (expo_id, hotel_id, note)
+      VALUES (#{expo.id}, #{hotel.id}, #{note})
+    </insert>
+    
+    <delete id="removeHotel" parameterType="map">
+      DELETE FROM expo_hotels
+      WHERE 
+      expo_id=#{expo.id}
+      and hotel_id=#{hotel.id}
+    </delete>
+    
+    <delete id="removeAllHotels" parameterType="expo">
+      DELETE FROM expo_hotels
+      WHERE 
+      expo_id=#{id}
+    </delete>
+    <update id="update" parameterType="hotel">
+        UPDATE expos
+        SET
+        name = #{name},
+        introduction = #{introduction},
+        venue=#{venue},
+        begin_date=#{beginDate},
+        end_date=#{endDate},
+        image_path=#{imagePath},
+        memo=#{memo},
+        is_english=#{isEnglish}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM expos WHERE id = #{id}
+        DELETE FROM expo_hotels WHERE expo_id=#{id}
+    </delete>
+</mapper>

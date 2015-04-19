@@ -1,0 +1,87 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/layouts/template-frontend.zul"?>
+<?init class="com.jinjiang.hotel.initiators.FrontExpoInitiator"?>
+<zk>
+<style>
+.title {
+font-size:2em;
+}
+
+.venue {
+font-size:1.5em;
+}
+
+.hotel_title{
+font-size:1.2em;
+font-weight:bold;
+}
+</style>
+<window self="@define(content)" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.FrontExpoVM')" validationMessages="@id('vmsgs')">
+<vlayout>
+<hlayout>
+      <image src="@load(vm.expo.imagePath)" />
+      <vlayout>
+      <label multiline="true" sclass="title"  value="@load(vm.expo.name)" />
+			<label sclass="venue" value="@load(vm.expo.beginDate) @converter('formatedDate', format='yyyy年MM月dd日')" /> --
+			<label sclass="venue" value="@load(vm.expo.endDate) @converter('formatedDate', format='yyyy年MM月dd')" />
+			<label multiline="true" sclass="venue" value="@load(vm.expo.venue)" />
+      </vlayout>
+</hlayout>
+
+<grid model="@load(vm.hotels) @template('md')">
+<rows>
+<template name="md" var="item">
+  <row>
+    <grid>
+    <columns>
+      <column width="23%" />
+      <column />
+    </columns>
+    <rows>
+    <row><cell colspan="2"><label sclass="hotel_title" value="${item.name }" /></cell></row>
+    <row>
+      <cell rowspan="3"><image src="@load(item.imagePath)" width="292px"/></cell>
+      <label multiline="true" value="${item.description }" /> 
+    </row>
+    <row><label multiline="true" value="${item.address }" /> </row>
+    <row>
+    <vlayout>
+    <label multiline="true" value="${item.priceInfo }" />
+    <grid model="@bind(item.rooms) @template('roomsTemplate')">
+      <columns>
+        <column label="房型 /Room Type"/>
+        <column label="价格 /Room Rate"/>
+        <column label="说明 /Note"/>
+        <column label="预订情况 /Availability"/>
+        <column label="酒店前台现付 /Pre-payment"/>
+      </columns>
+      <rows>
+      <template name="roomsTemplate" var="room">
+        <row>
+          <label value="${room.type }"/>
+          <label value="${room.price }"/>
+          <label value="${room.note }"/>
+          <div style="@load(room.isFull ?'font-size:120%;color:red;font-weight:bold;':'color:green;font-weight:bold;')">
+          <label visible="@load(not room.isFull)">可预订/Available</label>
+          <label visible="@load(room.isFull)">已满/Full</label>
+          </div>
+          <button onClick="@command('doHotelBooking',hotel=item)" disabled="@load(room.isFull)">预订/Book</button>
+        </row>
+      </template>
+      </rows>
+    </grid> 
+    </vlayout>
+    </row>
+    <row><cell colspan="2"><label value="${item.note }" /></cell> </row>
+    <row>
+      
+    </row>
+    </rows>
+    </grid>
+  </row>
+</template>
+</rows>
+</grid></vlayout></window>
+  
+
+</zk>

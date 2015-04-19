@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="db-config.properties"/>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="bonecp" type="com.jinjiang.hotel.orm.BoneCPDataSourceFactory"/>
+		<typeAlias alias="c3p0" type="com.jinjiang.hotel.orm.C3P0DataSourceFactory"/>
+		<package name="com.jinjiang.hotel.domain" />
+	</typeAliases>
+
+
+	<environments default="c3p0">
+		<environment id="mssql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver.class}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+		<environment id="bonecp">
+			<transactionManager type="JDBC" />
+			<dataSource type="bonecp">
+				<property name="driverClass" value="${jdbc.driver.class}" />
+				<property name="jdbcUrl" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+				<property name="minConnectionsPerPartition" value="5" />
+				<property name="maxConnectionsPerPartition" value="10" />
+				<property name="partitionCount" value="5" />
+			</dataSource>
+		</environment>
+		<environment id="c3p0">
+			<transactionManager type="JDBC" />
+			<dataSource type="c3p0">
+				<property name="driverClass" value="${jdbc.driver.class}" />
+				<property name="jdbcUrl" value="${jdbc.url}" />
+				<property name="user" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+				<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+				<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+				<property name="maxIdleTime" value="7200" />
+				<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+				<property name="maxConnectionAge" value="14400" />
+				<property name="automaticTestTable" value="${c3p0.automaticTestTable}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+	 <package name="com.jinjiang.hotel.mappers"/>
+	</mappers>
+
+</configuration>

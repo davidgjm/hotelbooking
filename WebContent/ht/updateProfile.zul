@@ -1,0 +1,69 @@
+<?page  contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+<zk>
+<style src="/css/default.css" />
+<style>
+.z-label.error {
+  font-weight:bold;
+  font-style:italic;
+  font-size:105%;
+  color:red;
+  background-color:yellow;
+}
+.z-textbox {
+	width:300px;
+}
+.header-column{
+  font-weight:bold;
+}
+
+.info {
+	font-size:1.2em;
+	font-weight:bold;
+	position:relative;
+	border: 1px solid;
+	margin: 10px 50px 10px 50px;
+	padding:15px;
+	color: #000;
+	background:#f3961c;
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f9d835), to(#f3961c));
+  background:-moz-linear-gradient(#f9d835, #f3961c);
+  background:-o-linear-gradient(#f9d835, #f3961c);
+  background:linear-gradient(#f9d835, #f3961c);
+  background:#f3961c; /* default background for browsers without gradient support */
+	-webkit-border-radius:10px;
+  -moz-border-radius:10px;
+	border-radius:10px;
+}
+</style>
+<div align="center" vflex="min" self="@define(content)">
+<window title="修改用户信息" width="800px" border="normal" defaultActionOnShow="slideDown" position="center" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.UpdateProfileVM')" validationMessages="@id('vmsgs')">
+	<vlayout>
+	<grid>
+				<columns>
+					<column width="15%" align="right" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label sclass="header-column">显示名 :</label>
+						<textbox value="@load(vm.user.displayName) @save(vm.user.displayName, before='doUpdateProfile')" />
+					</row>
+					<row>
+						<label sclass="header-column">邮件地址 :</label>
+						<textbox value="@load(vm.user.email) @save(vm.user.email, before='doUpdateProfile')" constraint="no empty" />
+					</row>
+					<row>
+						<label sclass="header-column">备注信息 :</label>
+						<textbox value="@load(vm.user.note) @save(vm.user.note, before='doUpdateProfile')" multiline="true" rows="4" />
+					</row>
+				</rows>
+			</grid><label id="msgbox" value="@bind(vm.message)" sclass="error" visible="@load(vm.message)" /><hlayout>
+			<button label="提交" onClick="@command('doUpdateProfile')" forward="onOK=onClick" />
+			<button label="取消" href="/ht/" />
+			</hlayout></vlayout>
+	</window>
+	</div>
+	
+</zk>

@@ -1,0 +1,419 @@
+<?page title="Guest Admin" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Guest Admin" border="normal">
+<vlayout>
+<div align="center"><button>确认选中客人</button></div>
+
+<grid mold="paging" pagingPosition="both" pageSize="10">
+		<columns>
+			<column width="3%" > <checkbox></checkbox> </column>
+			<column label="身份" width="4%" />
+			<column label="客人1" width="6%" />
+			<column label="客人2" />
+			<column label="客人3" />
+			<column label="客人4" />
+			<column label="电邮地址" />
+			<column label="电话" width="8%" />
+			<column label="传真" width="8%" />
+			<column label="公司" />
+			<column label="地址" />
+			<column label="邮编" width="5%" />
+		</columns>
+		<rows>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+			<row>
+			 <cell><checkbox checked="false" /></cell>
+			 <cell>嘉宾</cell>	
+			 <cell>王大强</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell>Mohamod zasdfasd</cell>	
+			 <cell><a href="mailto:davidgjm@gmail.com">davidgjm@gmail.com</a></cell>	
+			 <cell>13911111111</cell>	
+			 <cell>0999-12345678</cell>	
+			 <cell>中国海关</cell>	
+			 <cell>浦东新区洲海路320号</cell>	
+			 <cell>200131</cell>	
+			</row>
+		</rows>
+	</grid></vlayout>
+
+</window>
+</zk>

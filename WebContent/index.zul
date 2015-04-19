@@ -1,0 +1,46 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/layouts/template-frontend.zul"?>
+<zk>
+<style>
+.title {
+font-size:3em;
+}
+</style>
+<div align="center" self="@define(content)">
+<window border="none" apply="org.zkoss.bind.BindComposer" position="center" width="80%" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.WelcomeVM')" validationMessages="@id('vmsgs')">
+  <listbox model="@load(vm.expos)" selectedItem="@bind(vm.selected)" width="auto">
+  <template name="model">
+    <listitem style="padding-bottom:20px;">
+      <listcell>
+      <grid style="border:none;">
+      <columns>
+      	<column width="70%"/>
+      	<column/>
+      </columns>
+      <rows>
+        <row align="center">
+          <cell colspan="2">
+            <label multiline="true" sclass="title" value="@load(each.name)" onClick="@command('showDetails', eid=each.id)"/>
+          </cell>
+        </row>
+	      	<row>
+	      	<cell><image src="@load(each.imagePath)" onClick="@command('showDetails', eid=each.id)"/></cell>
+        <cell colspan="2">
+        <vlayout>
+        	<hlayout>
+		        <label value="@load(each.beginDate) @converter('formatedDate', format='yyyy年MM月dd日')" /> 
+		          - 
+		          <label value="@load(each.endDate) @converter('formatedDate', format='yyyy年MM月dd日')" />
+        	</hlayout>
+	        <label multiline="true" value="@load(each.venue)" />
+        </vlayout>
+          </cell>
+	      	</row>
+      </rows>
+      </grid></listcell>
+    </listitem>
+  </template>
+  </listbox>
+</window></div>
+
+</zk>

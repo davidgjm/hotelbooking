@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h3>${guest.name}，您好：</h3>
+<p>感谢您在本次展会预订酒店以及有关服务，您的预订请求正在处理中。根据您的预订内容，您的订单按照您的要求或者根据您的实际情况做了更新，以下是最新的订单信息，请查阅。如有问题，请及时联系我们。<p>
+<br/>
+<br/>
+<h4>预订信息</h4>
+<table border="1">
+<tr>
+  <th>预订编号</th>
+  <th>姓名</th>
+  <th>邮件地址</th>
+  <th>展会</th>
+  <th>预订日期</th>
+</tr>
+<tr>
+<td>${booking.id}</td>
+<td>${guest.name}</td>
+<td>${guest.email}</td>
+<td>${guest.expo.name}</td>
+<td>${booking.bookedOn?date?string.long}</td>
+</tr>
+</table>
+<h4>预订说明</h4>
+<blockquote>${booking.note}</blockquote>
+<h4>酒店房间预订</h4>
+<#if hotel??>
+<p><b>酒店：</b>${hotel.name}，<b>地理位置：</b>${hotel.address}，<b>星级标准：</b>${hotel.rating}</p>
+</#if>
+<#if roomBookings??>
+<table border="1">
+<tr>
+<th>房型</th>
+<th>房间数</th>
+<th>单价</th>
+<th>入住日期</th>
+<th>退房日期</th>
+<th>说明</th>
+</tr>
+<#list roomBookings as roomBooking>
+  <tr>
+    <td>${roomBooking.room.type}</td>
+    <td>${roomBooking.roomCount}</td>
+    <td>${roomBooking.room.price}</td>
+    <td>${roomBooking.checkinDate?date?string.long}</td>
+    <td>${roomBooking.checkoutDate?date?string.long}</td>
+    <td>${roomBooking.room.note}</td>
+  </tr>
+</#list>
+</table>
+</#if>
+
+<#if carBookings??>
+<br/>
+<br/>
+<h4>用车服务</h4>
+<table border="1">
+<tr>
+<th>行程</th>
+<th>车型</th>
+<th>使用次数</th>
+<th>使用日期</th>
+</tr>
+<#list carBookings as carBooking>
+  <tr>
+    <td>${carBooking.carRental.usage}</td>
+    <td>${carBooking.carRental.car}</td>
+    <td>${carBooking.bookCount}</td>
+    <td>${carBooking.whenToUse?date?string.long}</td>
+  </tr>
+</#list>
+</table>
+
+<h4>预订须知：</h4>
+<ol>
+  <li>如需要预订以上酒店的房间（除上海帝盛酒店、上海大华锦绣假日酒店外），请填写本回执单并回传到以下订房传真。订房会务组收到返回的订房回执单后将回复确认,住宿人凭确认单到宾馆（酒店）总服务台办理入住。</li>
+  <li>为避免损失，在收到住宿登记的回复确认后需要变更预订的应及时通知订房热线。</li>
+  <li>客房预订保留到入住日当天18：00，过时宾馆（酒店）将取消预订。如因特殊情况，需延长保留时间的请在本表格的其他要求一栏中注明，并写明到达宾馆（酒店）的大约时间。需要将客房预订保留到入住日当天18：00以后的, 须将第一天的房费汇入宾馆（酒店）帐户,汇款的具体事宜与订房热线联系。如要宾馆（酒店）保留房间后未入住，宾馆（酒店）将收一天的房费为损失费。</li>
+  <li>除上海帝盛酒店、上海大华锦绣假日酒店外，如不需要将客房预订保留到入住日当天18：00以后的，房费在入住时支付。</li>
+</ol>
+<table>
+  <tr>
+    <td>回执单填妥后请传真到本展会订房会务组如下传真</td>
+  </tr>
+  <tr>
+    <td>订房传真：86-21-62897838    订房热线电话：86-21-62893004</td>
+  </tr>
+</table>
+
+</#if>
+
+<#if tourBookings??>
+<br/>
+<br/>
+<h4>导游服务</h4>
+<table border="1">
+<tr>
+<th>行程</th>
+<th>语言</th>
+<th>单价</th>
+<th>使用次数</th>
+<th>使用日期</th>
+</tr>
+<#list tourBookings as tourBooking>
+  <tr>
+    <td>${tourBooking.guiding.route}</td>
+    <td>${tourBooking.guiding.language}</td>
+    <td>${tourBooking.guiding.price}</td>
+    <td>${tourBooking.bookCount}</td>
+    <td>${tourBooking.whenToUse?date?string.long}</td>
+  </tr>
+</#list>
+</table>
+</#if>
+
+<br/><br/>
+<div style="font-style:italic;margin-left:40px">
+        展会预订服务管理处
+</div>
+</body>
+</html>

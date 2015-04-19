@@ -1,0 +1,68 @@
+<?page title="导游租用" contentType="text/html;charset=UTF-8" ?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+
+<zk>
+	<window title="导游租用" border="normal" self="@define(content)"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.TourGuidingVM')"
+		validationMessages="@id('vmsgs')">
+		<hlayout>
+			<listbox model="@load(vm.guides)"
+				selectedItem="@bind(vm.selected)" hflex="true" mold="paging"
+				pagingPosition="both" pageSize="20">
+				<listhead>
+					<listheader label="ID" sort="auto(id)" 	width="5%" />
+					<listheader label="语言" sort="auto(language)" 	width="15%" />
+					<listheader label="行程" sort="auto(route)" 	width="30%" />
+					<listheader label="价格" sort="auto(price)" width="20%" />
+				</listhead>
+				<template name="model" var="item">
+					<listitem>
+						<listcell label="@load(item.id)" />
+						<listcell label="@load(item.language)" />
+						<listcell label="@load(item.route)" />
+						<listcell label="@load(item.price)" />
+					</listitem>
+				</template>
+			</listbox>
+			<div width="600px">
+				<toolbar>
+					<button label="添加"
+						onClick="@command('doCreate')" />
+					<button label="保存" onClick="@command('doSave')"
+						disabled="@bind(empty vm.selected)" />
+					<button label="删除"
+						onClick="@command('doDelete')"
+						disabled="@load(empty vm.selected)" />
+				</toolbar>
+				<groupbox visible="@bind(not empty vm.selected)"
+					mold="3d">
+					<grid hflex="true" focus="false">
+						<columns>
+							<column width="15%" />
+							<column />
+						</columns>
+						<rows>
+							<row>
+							ID <label value="@load(vm.selected.id)"/>
+							</row>
+							<row>
+								语言
+								<textbox width="100%" value="@load(vm.selected.language) @save(vm.selected.language,before='doSave')"
+									constraint="no empty" />
+							</row>
+							<row>
+								行程
+								<textbox width="100%" value="@load(vm.selected.route) @save(vm.selected.route,before='doSave')" />
+							</row>
+							<row>
+								价格
+								<textbox width="100%" value="@load(vm.selected.price) @save(vm.selected.price,before='doSave')" />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</div>
+		</hlayout>
+	</window>
+</zk>

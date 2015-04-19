@@ -1,0 +1,152 @@
+<?page title="Hotel"?>
+<zk>
+	<style>
+		body {background-image:url('./images/bg.jpg');}
+		div#banner_bar{background-image:url('images/banner_en.png');}
+	</style>
+	<vlayout style="margin-left:180px; margin-right:180px;"
+		width="100%">
+		<div width="982px">
+			<image width="982px" height="125px"
+				src="/images/banner_en.png" />
+			<toolbar>
+				<toolbarbutton label="Home" />
+			</toolbar>
+		</div>
+		<window border="normal" width="982px" height="1000px"
+			position="center" mode="embedded" visible="true">
+			<borderlayout>
+				<north>
+					<label
+						value="China Clean Expo  &gt; Visiting  &gt; Hotel" />
+				</north>
+				<center>
+					<vlayout>
+						<div></div>
+						<grid>
+							<columns>
+								<column width="150px" />
+								<column />
+							</columns>
+							<rows>
+								<row>
+									<cell valign="top">
+										<image src="/images/1.jpg" />
+									</cell>
+									<vlayout>
+										<label
+											value="Intercontinental Shanghai Expo"
+											style="font-weight:bold" />
+										<label
+											value="The new InterContinental Shanghai Expo hotel (Shibo Zhouji Jiudian) is an international luxury hotel located in the 2010 World Expo Site with impressive views of the Expo site, Huangpu River and city skyline. Conveniently located to the city's shopping and entertainment areas - just eight minutes away from the Lujiazui financial area in Pudong, and with nearby underground tunnels and bridge access to Puxi. The hotel provides guests with the local knowledge and insight to Shanghai and aims to make your Expo experience truly enriching and authentic. Address: 1188 Xueye Road (Xueye Lu), Shanghai, China" />
+									</vlayout>
+								</row>
+								<row>
+									<cell valign="top">
+										<image src="/images/2.png" />
+									</cell>
+									<vlayout>
+										<label
+											value="Pullman Shanghai Skyway Hotel"
+											style="font-weight:bold" />
+										<label>
+											Located in Shanghai's Luwan
+											District, just north of the
+											2010 Shanghai Expo site, the
+											Pullman Shanghai Skyway
+											(Shanghai Sigewei Bo'erman
+											Dajiudian) is roughly 15
+											minutes' drive from
+											Xintiandi, a popular
+											pedestrian shopping and
+											dining area housed in
+											reconstructed traditional
+											Shanghai lane houses;
+											Shanghai's top attraction,
+											the Bund; and Xujiahui, a
+											modern shopping and
+											entertainment center at the
+											western end of the French
+											Concession. With the new
+											Dapuqiao Metro Station (Line
+											9) just a short walk away,
+											all of Shanghai is within
+											easy reach of the Pullman.
+											Shanghai's Hongqiao Airport
+											can be reached with a
+											25-minute drive, while
+											Pudong International Airport
+											is about 45 minutes off (the
+											Metro also now connects to
+											both airports).Fun, fitness
+											and relaxation are to be had
+											in the Pullman's indoor
+											swimming pool or
+											spa.Address: 15 Dapu Road
+											(Dapu Lu)
+										</label>
+									</vlayout>
+								</row>
+								<row>
+									<cell valign="top">
+										<image src="/images/3.jpg" />
+									</cell>
+									<vlayout>
+										<label
+											value="Intercontinental Shanghai Expo"
+											style="font-weight:bold" />
+										<label
+											value="The new InterContinental Shanghai Expo hotel (Shibo Zhouji Jiudian) is an international luxury hotel located in the 2010 World Expo Site with impressive views of the Expo site, Huangpu River and city skyline. Conveniently located to the city's shopping and entertainment areas - just eight minutes away from the Lujiazui financial area in Pudong, and with nearby underground tunnels and bridge access to Puxi. The hotel provides guests with the local knowledge and insight to Shanghai and aims to make your Expo experience truly enriching and authentic. Address: 1188 Xueye Road (Xueye Lu), Shanghai, China" />
+									</vlayout>
+								</row>
+								<row>
+									<cell valign="top">
+										<image src="/images/4.jpg" />
+									</cell>
+									<vlayout>
+										<label
+											value="Intercontinental Shanghai Expo"
+											style="font-weight:bold" />
+										<label
+											value="The new InterContinental Shanghai Expo hotel (Shibo Zhouji Jiudian) is an international luxury hotel located in the 2010 World Expo Site with impressive views of the Expo site, Huangpu River and city skyline. Conveniently located to the city's shopping and entertainment areas - just eight minutes away from the Lujiazui financial area in Pudong, and with nearby underground tunnels and bridge access to Puxi. The hotel provides guests with the local knowledge and insight to Shanghai and aims to make your Expo experience truly enriching and authentic. Address: 1188 Xueye Road (Xueye Lu), Shanghai, China" />
+									</vlayout>
+								</row>
+								<row>
+									<cell valign="top">
+										<image src="/images/5.jpg" />
+									</cell>
+									<vlayout>
+										<label
+											value="Intercontinental Shanghai Expo"
+											style="font-weight:bold" />
+										<label
+											value="The new InterContinental Shanghai Expo hotel (Shibo Zhouji Jiudian) is an international luxury hotel located in the 2010 World Expo Site with impressive views of the Expo site, Huangpu River and city skyline. Conveniently located to the city's shopping and entertainment areas - just eight minutes away from the Lujiazui financial area in Pudong, and with nearby underground tunnels and bridge access to Puxi. The hotel provides guests with the local knowledge and insight to Shanghai and aims to make your Expo experience truly enriching and authentic. Address: 1188 Xueye Road (Xueye Lu), Shanghai, China" />
+									</vlayout>
+								</row>
+							</rows>
+						</grid>
+					</vlayout>
+
+				</center>
+				<south hflex="true">
+					<div align="center">
+						<label
+							value="Copyrighted by Shanghai UBM Sinoexpo">
+						</label>
+					</div>
+				</south>
+				<west width="310px">
+					<grid>
+						<rows>
+							<row>Green Channel</row>
+							<row>Visitor Preregistration</row>
+							<row>Show Brochure</row>
+							<row>2013 Show Report</row>
+							<row>E-newsletter Subscription</row>
+						</rows>
+					</grid>
+				</west>
+			</borderlayout>
+		</window>
+	</vlayout>
+</zk>

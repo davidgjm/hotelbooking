@@ -1,0 +1,162 @@
+<?page title="酒店管理" contentType="text/html;charset=UTF-8" ?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/ht/layout-admin.zul"?>
+<zk>
+<div self="@define(content)" ><tabbox>
+	<tabs>
+		<tab label="酒店管理" />
+		<tab label="付款方式管理" />
+	</tabs>
+	<tabpanels>
+		<tabpanel><window title="酒店管理" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.HotelVM')" validationMessages="@id('vmsgs')">
+	<hlayout>
+     <listbox model="@load(vm.hotels)" selectedItem="@bind(vm.hotel)" hflex="true" mold="paging" pagingPosition="both" pageSize="20">
+           <listhead>
+                  <listheader label="ID" sort="auto(id)" width="10%" />
+                  <listheader label="酒店" sort="auto(name)" width="22%" />
+                  <listheader label="星级标准" sort="auto(rating)" width="22%" />
+                  <listheader label="位置" sort="auto(address)" width="25%" />
+           </listhead>
+           <template name="model" var="item">
+                  <listitem>
+                         <listcell label="@load(item.id)" />
+                         <listcell label="@load(item.name)" />
+                         <listcell label="@load(item.rating)" />
+                         <listcell label="@load(item.address)" />
+                  </listitem>
+           </template>
+     </listbox>
+	       <div width="500px">
+	             <toolbar>
+	                    <button label="添加酒店" onClick="@command('createHotel')" disabled="@bind(empty vm.hotel)"/>
+	                    <button label="保存修改" onClick="@command('saveHotel')" disabled="@bind(empty vm.hotel)" />
+	                    <button label="删除酒店" onClick="@command('deleteHotel')" disabled="@load(empty vm.hotel)" />
+	                    <button label="上传酒店图片" mold="trendy" upload="true,maxsize=10000,multiple=false,accept=image/*" onUpload="@command('upload')" />
+	             </toolbar>
+	             <groupbox visible="@load(not empty vm.hotel)" mold="3d">
+	                    <grid hflex="true" focus="false">
+	                           <columns>
+	                                  <column width="15%" />
+	                           </columns>
+	                           <rows>
+	                                  <row>
+	                                        ID<label value="@load(vm.hotel.id)" />
+	                                  </row>
+	                                  <row>
+	                                        名称<textbox width="100%" multiline="true" rows="3" value="@load(vm.hotel.name) @save(vm.hotel.name,before='saveHotel')" constraint="no empty" />
+	                                  </row>
+	                                  <row>
+	                                        星级标准<textbox width="100%" value="@load(vm.hotel.rating) @save(vm.hotel.rating,before='saveHotel')" />
+	                                  </row>
+	                                  <row>
+	                                        位置<textbox width="100%" multiline="true" rows="2" value="@load(vm.hotel.address) @save(vm.hotel.address,before='saveHotel')" />
+	                                  </row>
+	                                  <row>
+	                                        说明<textbox width="100%" value="@load(vm.hotel.description) @save(vm.hotel.description,before='saveHotel')" multiline="true" rows="8" />
+	                                  </row>
+	                                  <row>
+	                                        价格
+              <vlayout><textbox width="100%" value="@load(vm.hotel.priceInfo) @save(vm.hotel.priceInfo,before='saveHotel')" multiline="true" rows="3" />
+              <button label="管理房间..." onClick="roomAdminPage.doHighlighted()" />
+              <window id="roomAdminPage" width="800px" height="480px" defaultActionOnShow="slideDown" 
+              	visible="false" position="center" >
+              <toolbar>
+	             <button label="关闭" onClick="roomAdminPage.visible=false" />
+	             <button label="增加房型信息" onClick="@command('createRoom')" />
+	            </toolbar><vlayout>
+	            <grid model="@bind(vm.hotel.rooms)">
+	            	<columns>
+              		<column label="房型" width="20%"/>
+              		<column label="价格" width="20%"/>
+              		<column label="是否满房" width="15%"/>
+              		<column label="说明"/>
+              		<column width="12%"/>
+	            	</columns>
+	            	<rows>
+	            		<template name="model">
+		            		<row>
+		             			<textbox value="@load(each.type) @save(each.type,before='updateRoom')" constraint="no empty" />
+		             			<textbox value="@load(each.price) @save(each.price,before='updateRoom')" constraint="no empty" />
+		             			<checkbox width="90%" label="房间已满" checked="@load(each.isFull) @save(each.isFull,before='updateRoom')"/>
+		             			<textbox width="95%" rows="2" value="@load(each.note) @save(each.note,before='updateRoom')" />
+		             			<vlayout>
+					              <button label="保存" onClick="@command('updateRoom',room=each)" />
+			             			<button label="删除房间" onClick="@command('deleteRoom', room=each)"/>
+		             			</vlayout>
+		            		</row>
+	            		</template>
+	            	</rows>
+	            </grid>
+              <listbox model="@bind(vm.hotel.rooms)" selectedItem="@bind(vm.selectedRoom)">
+              	<listhead>
+              	</listhead>
+	            </listbox>
+	            
+	            <grid visible="@bind(not empty vm.selectedRoom)">
+	             <columns>
+	               <column style="font-weight:bold;" width="20%" />
+	               <column />
+	             </columns>
+	             <rows>
+	               <row>房型：<textbox value="@load(vm.selectedRoom.type) @save(vm.selectedRoom.type,before='saveRoom')" constraint="no empty" /></row>
+	               <row>价格：<textbox value="@load(vm.selectedRoom.price) @save(vm.selectedRoom.price,before='saveRoom')" constraint="no empty" /></row>
+	               <row>预订状态：<textbox value="@load(vm.selectedRoom.isFull) @save(vm.selectedRoom.isFulls,before='saveRoom')" /></row>
+	               <row>说明：<textbox rows="2" width="90%" value="@load(vm.selectedRoom.note) @save(vm.selectedRoom.note,before='saveRoom')" /></row>
+	             </rows>
+	            </grid>
+	            </vlayout></window>
+              </vlayout>
+	                                  </row>
+	                                  <row>
+	                                        备注<textbox width="100%" value="@load(vm.hotel.note) @save(vm.hotel.note,before='saveHotel')" multiline="true" rows="3" />
+	                                  </row>
+	                                  <row>
+	                                        图片 <image src="@load(vm.hotel.imagePath)" />
+	                                  </row>
+	                           </rows>
+	                    </grid>
+	             </groupbox>
+	       </div>
+	</hlayout>
+</window></tabpanel>
+		<tabpanel><window title="付款方式管理" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.PaymentModeVM')" validationMessages="@id('vmsgs')">
+	<hlayout>
+     <listbox model="@load(vm.modes)" selectedItem="@bind(vm.selected)" hflex="true" mold="paging" pageSize="5" pagingPosition="top">
+           <listhead>
+                  <listheader label="付款方式" sort="auto(name)" />
+           </listhead>
+           <template name="model" var="item">
+                  <listitem>
+                         <listcell label="@load(item.name)" />
+                  </listitem>
+           </template>
+     </listbox>
+	       <div width="600px">
+	             <toolbar>
+	                    <button label="添加支付方式" onClick="@command('doCreate')" />
+	                    <button label="保存修改" onClick="@command('doSave')" disabled="@bind(empty vm.selected)" />
+	                    <button label="删除" onClick="@command('doDelete')" disabled="@load(empty vm.selected)" />
+	             </toolbar>
+	             <groupbox visible="@load(not empty vm.selected)" mold="3d">
+	                    <grid hflex="true" focus="false">
+	                           <columns>
+	                                  <column width="15%" />
+	                           </columns>
+	                           <rows>
+	                                  <row>
+	                                        ID<label value="@load(vm.selected.id)" />
+	                                  </row>
+	                                  <row>
+	                                        付款方式称<textbox width="100%" value="@load(vm.selected.name) @save(vm.selected.name,before='doSave')" constraint="no empty" />
+	                                  </row>
+	                           </rows>
+	                    </grid>
+	             </groupbox>
+	       </div>
+	</hlayout>
+</window></tabpanel>
+	</tabpanels>
+</tabbox>
+</div>
+
+
+</zk>

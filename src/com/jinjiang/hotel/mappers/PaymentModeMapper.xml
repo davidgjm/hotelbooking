@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.PaymentModeMapper">
+
+    <resultMap id="paymentModeResult" type="paymentMode">
+        <result property="id" column="id" />
+        <result property="name" column="name"/>
+    </resultMap>
+    
+    <select id="getAll" parameterType="int" resultMap="paymentModeResult">
+        SELECT *
+        FROM payment_modes
+        ORDER BY name ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="paymentModeResult">
+        SELECT *
+        FROM payment_modes
+        WHERE id=#{id}
+    </select>
+    
+    <select id="getByName" parameterType="string" resultMap="paymentModeResult" >
+        SELECT *
+        FROM payment_modes
+				WHERE name =#{name}
+				ORDER BY name
+    </select>
+    
+    <insert id="save" parameterType="hotel" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO payment_modes (name)
+        VALUES (#{name})
+    </insert>
+    
+    <update id="update" parameterType="hotel">
+        UPDATE payment_modes
+        SET
+        name = #{name}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM payment_modes WHERE id = #{id}
+    </delete>
+</mapper>

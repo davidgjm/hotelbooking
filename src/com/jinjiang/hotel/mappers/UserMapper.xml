@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.UserMapper">
+
+    <resultMap id="userResult" type="user">
+        <result property="id" column="id" />
+        <result property="userName" column="user_name"/>
+        <result property="password" column="user_password"/>
+        <result property="displayName" column="display_name"/>
+        <result property="email" column="email"/>
+        <result property="note" column="note"/>
+        <result property="createdOn" column="created_on" javaType="date"/>
+    </resultMap>
+    
+    <select id="getAll" parameterType="int" resultMap="userResult">
+        SELECT *
+        FROM admin_users
+        ORDER BY user_name ASC
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="userResult">
+        SELECT *
+        FROM admin_users
+        WHERE id=#{id}
+    </select>
+    
+    <select id="getByUserName" parameterType="string" resultMap="userResult" >
+        SELECT *
+        FROM admin_users
+				WHERE user_name =#{userName}
+				ORDER BY user_name
+    </select>
+    
+    <insert id="save" parameterType="user" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO admin_users (user_name,user_password,display_name,email,note)
+        VALUES (#{userName}, #{password},#{displayName},#{email},#{note})
+    </insert>
+    
+    <update id="changePassword" parameterType="user">
+        UPDATE admin_users
+        SET
+        user_password=#{password}
+        where id = #{id}
+    </update>
+    <update id="update" parameterType="user">
+        UPDATE admin_users
+        SET
+        <!-- 
+        user_name=#{userName},
+         -->
+        display_name=#{displayName},
+        email=#{email},
+        note=#{note}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM admin_users WHERE id = #{id}
+    </delete>
+</mapper>

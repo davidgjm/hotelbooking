@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Created by ZK Studio -->
+
+<zk>
+	<device-config>
+		<device-type>ajax</device-type>
+		<timeout-uri>/</timeout-uri><!-- An empty URL can cause the browser to 
+			reload the same URL -->
+	</device-config>
+	<!-- <library-property> <name>org.zkoss.theme.preferred</name> <value>atlantic</value> 
+		</library-property> -->
+	<library-property>
+		<name>org.zkoss.web.preferred.locale</name>
+		<value>zh_CN</value>
+	</library-property>
+</zk>

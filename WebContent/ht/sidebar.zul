@@ -1,0 +1,12 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<grid>
+<rows>
+  <row><a href="/ht/bookings.zul">展会预订信息管理</a></row>
+  <row><a href="/ht/">展会管理</a></row>
+  <row><a href="/ht/hotels.zul">酒店管理</a></row>
+  <row><a href="/ht/carRentals.zul">租车管理</a></row>
+  <row><a href="/ht/tourGuiding.zul">导游服务管理</a></row>
+</rows>
+</grid>
+</zk>

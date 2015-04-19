@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinjiang.hotel.mappers.GuestMapper">
+    <resultMap id="guestResult" type="guest">
+        <result property="id" column="id" />
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="postcode" column="post_code"/>
+        <result property="company" column="company"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="cellPhone" column="cell_phone"/>
+        <result property="fax" column="fax"/>
+        <result property="name1" column="name_01"/>
+        <result property="name2" column="name_02"/>
+        <result property="name3" column="name_03"/>
+        <result property="name4" column="name_04"/>
+        <result property="isConfirmed" column="is_confirmed" jdbcType="BIT"/>
+        <result property="isBuyer" column="is_buyer" jdbcType="BIT"/>
+        <result property="isExhibitor" column="is_exhibitor" jdbcType="BIT"/>
+        <result property="isVIP" column="is_vip" jdbcType="BIT"/>
+        <result property="registerDate" column="register_date" jdbcType="TIMESTAMP"/>
+        <result property="note" column="note"/>
+        <association property="expo" javaType="expo" column="expo_id"
+          select="com.jinjiang.hotel.mappers.ExpoMapper.getById" />
+    </resultMap>
+
+    <select id="getAll" parameterType="int" resultMap="guestResult">
+        SELECT *
+        FROM guests
+        ORDER BY name ASC
+    </select>
+    <select id="getGuestsByExpo" parameterType="expo" resultMap="guestResult">
+				SELECT * from guests
+				WHERE
+				  expo_id=#{id}
+        ORDER BY name ASC
+    </select>
+    <select id="getById" parameterType="int" resultMap="guestResult">
+        SELECT *
+        FROM guests
+        WHERE id=#{id}
+    </select>
+    
+    <select id="findGuest" parameterType="guest" resultMap="guestResult">
+    	SELECT *
+    	FROM guests
+    	WHERE
+    		expo_id=#{expo.id}
+    		AND name =#{name}
+    		
+    </select>
+    
+    <insert id="save" parameterType="guest" useGeneratedKeys="true" keyProperty="id" >
+    	<selectKey resultType="int" databaseId="id" keyProperty="id" order="AFTER">
+    		SELECT SCOPE_IDENTITY() AS ID; 
+    	</selectKey>
+        INSERT INTO guests (name,address, post_code,company, email, phone, cell_phone, fax, name_01,name_02,name_03,name_04, expo_id, 
+        is_confirmed, is_buyer, is_exhibitor, is_vip, register_date, note)
+        VALUES (#{name},#{address}, #{postcode}, #{company}, #{email}, #{phone}, #{cellPhone}, #{fax}, 
+          #{name1},#{name2},#{name3},#{name4}, #{expo.id}, #{isConfirmed}, #{isBuyer}, #{isExhibitor}, #{isVIP}, #{registerDate}, #{note})
+    </insert>
+    
+    <update id="update" parameterType="guest">
+        UPDATE guests
+        SET
+				name = #{name},
+				address = #{address},
+				post_code = #{postcode},
+				company = #{company},
+				email = #{email},
+				phone = #{phone},
+				cell_phone = #{cellPhone},
+				fax = #{fax},
+				name_01 = #{name1},
+				name_02 = #{name2},
+				name_03 = #{name3},
+				name_04 = #{name4},
+				expo_id = #{expo.id},
+				is_confirmed = #{isConfirmed},
+				is_buyer = #{isBuyer},
+				is_exhibitor = #{isExhibitor},
+				is_vip = #{isVIP},
+				register_date = #{registerDate},
+				note = #{note}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM guests WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="hotelbooking">
+    <property environment="env"/>
+	<property name="build.properties" value="build.properties" />
+	<property file="${build.properties}" />
+	<property name="code.src" value="src"/>
+	<property name="code.build" value="build"/>
+	<property name="code.build.dist" value="${code.build}/dist"/>
+	<property name="code.src.release" value="1.7" />
+	<property name="code.bin.release" value="1.7" />
+	<property name="code.web.root" value="WebContent"/>
+
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+	<property name="tomcat.war" value="${code.build.dist}/${ant.project.name}.war"/>
+
+    <path id="tomcat.libraryclasspath">
+    	<fileset dir="${tomcat.home}/lib" includes="*.jar" />
+    </path>
+    <path id="web.libraryclasspath">
+    	<fileset dir="${code.web.root}/WEB-INF/lib" includes="*.jar" />
+    </path>
+    <path id="webapp.classpath">
+        <pathelement location="${code.build}/classes"/>
+        <path refid="tomcat.libraryclasspath"/>
+        <path refid="web.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="${code.build}/classes"/>
+        <copy includeemptydirs="false" todir="${code.build}/classes">
+            <fileset dir="${code.src}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="${code.build}"/>
+    </target>
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac fork="true" debug="true" debuglevel="${debuglevel}"
+        		encoding="${code.java.encoding}" destdir="${code.build}/classes" includeantruntime="false" source="${code.src.release}" target="${code.bin.release}">
+            <src path="${code.src}" />
+            <classpath refid="webapp.classpath"/>
+        </javac>
+    </target>
+	<!-- ================================= 
+          target: web-war-unzipped              
+         ================================= -->
+    <target name="web-war-unzipped" depends="web-war">
+		<unwar src="${tomcat.war}" dest="${code.build}/deploy/${ant.project.name}" overwrite="true" />
+    </target>
+
+	<!-- ================================= 
+          target: web-war             
+         ================================= -->
+    <target name="web-war" depends="build" >
+        <war destfile="${tomcat.war}" webxml="${code.web.root}/WEB-INF/web.xml" update="true" defaultexcludes="true">
+        	<fileset dir="${code.web.root}">
+        	</fileset>
+          <lib dir="${code.web.root}/WEB-INF/lib" />
+        	<webinf dir="${code.web.root}/WEB-INF" file="zk.xml" />
+        	<classes dir="${code.build}/classes" />
+        </war>
+    </target>
+
+	<!-- ================================= 
+          target: web-deploy-local              
+         ================================= -->
+    <target name="web-deploy-local" depends="web-war-unzipped" description="description">
+        <copy todir="${tomcat.home}/webapps/${ant.project.name}" overwrite="true">
+        	<fileset dir="${code.build}/deploy/${ant.project.name}" />
+        </copy>
+    </target>
+
+</project>
