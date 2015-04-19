@@ -1,7 +1,16 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk>
+	<style>
+		.banner { 
+		background-image:url('images/banner.jpg');
+		background-repeat: repeat-x;
+		}
+	</style>
 <vlayout>
-<div></div>
+<div>
+		<!-- <image src="/images/banner.jpg" width="1000px"/> -->
+		<image src="/images/banner.jpg" sclass="responsive-image" height="200px"/>
+</div>
 <div align="right" style="padding:20px" 
 apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.AuthenticationVM')">
 <button label="退出" onClick="@command('doLogout')" visible="${not empty sessionScope.adminUser }"/>
