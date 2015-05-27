@@ -20,6 +20,7 @@ background-position: 10px center;
 	background-image: url('../images/error.png');
 	border-radius:10px;
 }
+
 </style>
     <zk>
     
@@ -40,8 +41,10 @@ background-position: 10px center;
         		<box id="mainContent" self="@insert(content)" sclass="container" style="margin-top:25px;" />
         	</vlayout>
         </center>
-        <south sclass="bg-info footer">
-        	<include src="/layouts/footer.zul" />
+        <south sclass="bg-success">
+        	<div sclass="footer">
+	        	<include src="/layouts/footer.zul" />
+        	</div>
         </south>
     </borderlayout>
     </zk>

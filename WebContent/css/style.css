@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
 .footer {
-	height: 50px;
+	height: 40px;
+	padding-top: 15px;
+	font-size: 14px;
+	vertical-align: middle;
 }

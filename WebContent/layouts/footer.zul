@@ -1,13 +1,11 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
+<?style src="/css/style.css"?>
+
 <zk xmlns:n="native">
 <div align="center">
 	<hbox>
-	 <label>联系人</label>
-	 <label>谭文英</label>
-	 <label>联系电话</label>
-	 <label>86-21-60671818</label>
-	 <label>订房传真</label>
-	 <label>86-21-60671874</label>
+	<n:span>联系人：谭文英&#160;&#160;&#160;&#160;联系电话：86-21-60671818 &#160;&#160;订房传真：86-21-60671874</n:span>
 	</hbox>
 </div>
 </zk>

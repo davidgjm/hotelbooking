@@ -1,5 +1,6 @@
 <?page title="Hotel"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/layouts/template-frontend.zul"?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
 <?style src="/css/style.css"?>
 
 <zk>

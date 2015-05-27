@@ -1,5 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
+<?style src="/css/style.css"?>
 
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/layouts/template-frontend.zul"?>
 <zk xmlns:n="native">
