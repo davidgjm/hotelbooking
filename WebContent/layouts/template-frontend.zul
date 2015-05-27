@@ -40,7 +40,7 @@ background-position: 10px center;
         		<box id="mainContent" self="@insert(content)" sclass="container" style="margin-top:25px;" />
         	</vlayout>
         </center>
-        <south>
+        <south sclass="bg-info footer">
         	<include src="/layouts/footer.zul" />
         </south>
     </borderlayout>
