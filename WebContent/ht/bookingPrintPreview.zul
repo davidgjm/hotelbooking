@@ -7,7 +7,7 @@
 	font-weight:bold;
 }
 </style>
-	<window border="none" width="1024px"
+	<window border="none" width="800px"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('com.jinjiang.hotel.mvvm.admin.BookingDetailsVM')"
 		validationMessages="@id('vmsgs')">
@@ -131,10 +131,10 @@
 <grid width="50%">
 				<rows>
 					<row><cell align="center">
-						<label style="font-weight:bold;font-size:110%" value="回执单填妥后请传真到本展会订房会务组如下传真" />
+						<label style="font-weight:bold;font-size:110%" value="回执单填妥后请传真到本展会订房会务组如下" />
 					</cell></row>
 					<row><cell align="center">
-					<label style="font-weight:bold;font-size:110%" value="订房传真：86-21-62897838    订房热线电话：86-21-62893004" />
+					<label style="font-weight:bold;font-size:110%" value="订房传真：86-21-60671874    订房热线电话：86-21-60671818" />
 </cell></row>
 				</rows>
 			</grid>
