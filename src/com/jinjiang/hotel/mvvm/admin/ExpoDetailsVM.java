@@ -63,7 +63,9 @@ public class ExpoDetailsVM {
 	public ListModelList<Hotel> getHotels() {
 		if (hotels==null) {
 			List<Hotel> all=getService().getAllHotels();
-			all.removeAll(getService().getHotels(expo));
+			List<Hotel> hotels2=getService().getHotels(expo);
+			if(hotels2 !=null)
+				all.removeAll(hotels2);
 			hotels=new ListModelList<Hotel>(all);
 		}
 		this.hotels.setMultiple(true);
