@@ -42,5 +42,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-WebContent/WEB-INF/classes/db-config.properties
 /build/
+
+.idea
+
+src/main/resources/db-config.properties
