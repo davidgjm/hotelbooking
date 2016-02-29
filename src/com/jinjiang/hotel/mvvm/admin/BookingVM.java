@@ -135,7 +135,7 @@ public class BookingVM {
 	public void openBookingPrintPreview(@BindingParam("bid") Integer bid) {
 		GuestBooking selectedBooking=getService().getBooking(bid);
 		Sessions.getCurrent().setAttribute(ZKConstants.ATTRS_ADMIN_BOOKING, selectedBooking);
-		Executions.sendRedirect(ZKConstants.REDIRECTS_ADMIN_BOOKING_PRINT_PREVIEW);
+		Executions.getCurrent().sendRedirect(ZKConstants.REDIRECTS_ADMIN_BOOKING_PRINT_PREVIEW, "_blank");
 	}
 
 	@NotifyChange("bookings")

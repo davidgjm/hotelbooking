@@ -520,24 +520,21 @@ public class BookingDetailsVM {
 	@NotifyChange("booking")
 	@Command
 	public void doDelete() {
-		Messagebox.show("确定要确认这些客人的预订信息吗？按确定继续。", "确认预订",
+		String caption=String.format("确定要删除编号为 %s 的预订信息吗？按确定继续。", booking.getId());
+		Messagebox.show(caption, "删除预订",
 	    	      Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
 	    	      new EventListener<Event>() {
 					@Override
 					public void onEvent(Event e) throws Exception {
 						if(e.getName().equals("onCancel")) return;
 						if("onOK".equals(e.getName())){
-							if (log.isInfoEnabled()) {
-								log.info("Deleting guest booking..." );
-							}
+							log.info("Deleting guest booking {}", booking.getId() );
+							
     	                	getService().delete(booking);
-    	                	
-    	                	if (log.isDebugEnabled()) {
-								log.debug("Guest booking deleted. Redirecting to admin home.");
-							}
+    	                	log.debug("Guest booking deleted. Redirecting to admin home.");
     	                	//remove this booking since it's deleted.
     	                	Sessions.getCurrent().removeAttribute(ZKConstants.ATTRS_ADMIN_BOOKING);
-    	                	Executions.sendRedirect(ZKConstants.REDIRECTS_ADMIN_HOME);
+    	                	Executions.sendRedirect(ZKConstants.REDIRECTS_ADMIN_BOOKINGS);
 						}
 					}
 				}

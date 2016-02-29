@@ -18,6 +18,7 @@
 <button label="直接确认订单" onClick="@command('doConfirm')"  visible="@load(not vm.booking.confirmStatus)" />
 <button label="保存修改" onClick="@command('doUpdate')"/>
 <button label="取消修改并返回" onClick="@command('revertRemovedBookings')"/>
+<button label="删除当前订单" onClick="@command('doDelete')"/>
 </toolbar>
 		<groupbox mold="3d" closable="false">
 			<caption label="联络信息" />
